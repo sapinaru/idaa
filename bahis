@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bahis Analiz</title>
+<style>
+body { font-family: Arial; background:#111; color:#fff; padding:20px; }
+input, button { width:100%; padding:12px; margin-top:10px; }
+button { background:#00c853; color:#fff; border:none; }
+#sonuc { margin-top:20px; font-size:18px; }
+</style>
+</head>
+<body>
+
+<h2>Bahis Analiz Sistemi</h2>
+
+<input id="oran" placeholder="Oran (örn: 1.80)" type="number" step="0.01">
+<input id="tahmin" placeholder="Tahmin (%)" type="number">
+
+<button onclick="hesapla()">Analiz Et</button>
+
+<div id="sonuc"></div>
+
+<script>
+function hesapla(){
+let oran = parseFloat(document.getElementById("oran").value);
+let tahmin = parseFloat(document.getElementById("tahmin").value)/100;
+
+if(!oran || !tahmin){
+document.getElementById("sonuc").innerHTML = "⚠️ Değer gir";
+return;
+}
+
+let implied = 1/oran;
+let value = tahmin - implied;
+
+let text = "📊 Oran olasılığı: " + (implied*100).toFixed(2) + "%<br>";
+
+if(value > 0){
+text += "✅ VALUE BET<br>";
+}else{
+text += "❌ Değer yok<br>";
+}
+
+if(tahmin > 0.65){
+text += "🔥 Güçlü";
+}else if(tahmin > 0.50){
+text += "⚖️ Orta";
+}else{
+text += "⚠️ Riskli";
+}
+
+document.getElementById("sonuc").innerHTML = text;
+}
+</script>
+
+</body>
+</htm
